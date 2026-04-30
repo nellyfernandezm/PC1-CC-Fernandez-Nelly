@@ -1,0 +1,35 @@
+import os
+import psycopg2
+from datetime import datetime
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
+
+SECRETS_PATH = "Workspace/Repos/nelly.fernandez@usil.pe/PC1-Fernandez-Nelly/secrets.toml"
+
+if not os.path.exists(SECRETS_PATH):
+    SECRETS_PATH=os.path.join(os.path.dirname(os.path.abspath(__file__)),"secrets.toml")
+
+with open(SECRETS_PATH,"rb") as f:
+    secrets=tomllib.load(f)
+
+pg=secrets["postgres"]
+
+conn =psycopg2.connect(
+host=pg["HOST"],
+port=pg["PORT"],
+dbname=pg["DBNAME"],
+user=pg["USER"],
+password =pg["PASSWORD"],
+sslmode="require"
+)
+cur=conn.cursor()
+
+cur.execute("""INSERT INTO ejecucion(fechaejecucion,mensaje) values("2026-01-01","prueba")""")
+
+conn.commit()
+cur.close()
+conn.close()
+
