@@ -8,7 +8,7 @@ import pandas as pd
 USER = st.secrets["postgres"]["USER"]
 PASSWORD = st.secrets["postgres"]["PASSWORD"]
 HOST = st.secrets["postgres"]["HOST"]
-PORT = st.secrets["postgres"]["POST"]
+PORT = st.secrets["postgres"]["PORT"]
 DBNAME = st.secrets["postgres"]["DBNAME"]
 
 
